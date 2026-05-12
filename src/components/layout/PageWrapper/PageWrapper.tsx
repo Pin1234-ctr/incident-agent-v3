@@ -19,10 +19,13 @@ export function PageWrapper({ children, title, description, actions, bare }: Pag
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="flex min-h-screen w-full bg-background">
-      <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+    <div className="flex h-screen w-full bg-background overflow-hidden">
+      <Sidebar
+        open={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
+      />
 
-      <div className="flex flex-1 flex-col min-w-0">
+      <div className="flex flex-1 flex-col min-w-0 h-full overflow-hidden">
         <Header onMenuClick={() => setSidebarOpen(true)} />
 
         <motion.main
@@ -31,7 +34,7 @@ export function PageWrapper({ children, title, description, actions, bare }: Pag
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.2 }}
           className={cn(
-            'flex-1 min-w-0',
+            'flex-1 min-w-0 overflow-y-auto custom-scrollbar',
             bare ? '' : 'mx-auto w-full max-w-7xl px-4 sm:px-6 py-6',
           )}
         >
@@ -50,6 +53,7 @@ export function PageWrapper({ children, title, description, actions, bare }: Pag
           )}
 
           {children}
+          {!bare && <div className="h-12" />} {/* Bottom spacer */}
         </motion.main>
 
         <Footer />
@@ -57,3 +61,5 @@ export function PageWrapper({ children, title, description, actions, bare }: Pag
     </div>
   );
 }
+
+

@@ -11,6 +11,8 @@ import {
   Plug,
   Network,
   X,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/utils/cn";
@@ -66,7 +68,7 @@ function NavList({ onItemClick }: { onItemClick?: () => void }) {
   });
 
   return (
-    <nav className="flex-1 space-y-1 px-3 py-4">
+    <nav className="flex-1 space-y-1 px-3 py-4 overflow-y-auto">
       {filteredItems.map(({ to, label, icon: Icon, badge }) => (
         <NavLink
           key={to}
@@ -88,13 +90,13 @@ function NavList({ onItemClick }: { onItemClick?: () => void }) {
               <span className="flex items-center gap-3">
                 <Icon
                   className={cn(
-                    "h-4 w-4 transition-colors",
+                    "h-4 w-4 transition-colors shrink-0",
                     isActive
                       ? "text-primary"
                       : "text-muted-foreground group-hover:text-foreground",
                   )}
                 />
-                {label}
+                <span>{label}</span>
               </span>
               {badge && (
                 <span className="inline-flex items-center gap-1 rounded-full bg-success/15 px-1.5 py-0.5 text-[10px] font-semibold uppercase text-success">
@@ -114,12 +116,12 @@ function SidebarContent({ onClose }: { onClose?: () => void }) {
   return (
     <div className="flex h-full flex-col">
       <div className="flex h-16 items-center justify-between gap-2 border-b border-border px-5">
-        <div className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-md bg-gradient-to-br from-primary to-accent text-primary-foreground shadow-soft-sm">
+        <div className="flex items-center gap-2 overflow-hidden">
+          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-gradient-to-br from-primary to-accent text-primary-foreground shadow-soft-sm">
             <Sparkles className="h-4 w-4" />
           </div>
           <div className="flex flex-col leading-tight">
-            <span className="text-sm font-bold text-foreground">
+            <span className="text-sm font-bold text-foreground truncate">
               {appConfig.name}
             </span>
             <span className="text-[10px] uppercase tracking-wider text-muted-foreground">
@@ -140,8 +142,8 @@ function SidebarContent({ onClose }: { onClose?: () => void }) {
 
       <NavList onItemClick={onClose} />
 
-      <div className="border-t border-border p-3">
-        <div className="rounded-lg border border-primary/30 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5 p-3">
+      <div className="p-3 border-t border-border">
+        <div className="rounded-lg border border-primary/30 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5 p-3 transition-all">
           <div className="flex items-center gap-2 mb-1">
             <Sparkles className="h-3.5 w-3.5 text-primary" />
             <p className="text-xs font-semibold text-foreground">
@@ -156,6 +158,7 @@ function SidebarContent({ onClose }: { onClose?: () => void }) {
     </div>
   );
 }
+
 
 export function Sidebar({ open, onClose }: SidebarProps) {
   return (
@@ -191,3 +194,5 @@ export function Sidebar({ open, onClose }: SidebarProps) {
     </>
   );
 }
+
+

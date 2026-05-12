@@ -13,6 +13,7 @@ export function Footer() {
             All systems operational
           </span>
           <span>v{appConfig.version}</span>
+          
         </div>
       </div>
     </footer>
